@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batch Text Cyberbullying Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="text-center py-10 bg-gray-800 shadow">
+    <h1 class="text-4xl font-bold text-violet-300">Batch Text Cyberbullying Detection</h1>
+    <p class="text-violet-400 mt-2">Enter multiple messages below for analysis</p>
+    <a href="/" class="mt-2 text-blue-300 hover:underline inline-block">&larr; Back to single message</a>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
+    <form method="POST" class="bg-gray-800 rounded-xl shadow-xl p-6 w-full max-w-2xl border border-gray-700">
+      {% if error %}
+        <div class="bg-red-500 text-white font-semibold px-4 py-2 mb-4 rounded">{{ error }}</div>
+      {% endif %}
+      <label for="messages" class="block text-lg font-semibold mb-2">Your Messages (one per line):</label>
+      <textarea id="messages" name="messages" rows="8" required
+                class="w-full rounded-lg border border-gray-600 bg-gray-700 text-white p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Type your messages here...">{{ input_text }}</textarea>
+      <button type="submit"
+              class="mt-4 w-full bg-violet-700 hover:bg-violet-800 text-white font-bold py-3 rounded-lg transition">
+        🚀 Analyze Messages
+      </button>
+    </form>
+
+    {% if results %}
+    <div class="mt-8 w-full max-w-3xl">
+      <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow">
+        <h2 class="text-xl font-bold mb-4">Results</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-700 text-white">
+              <tr>
+                <th class="px-4 py-2 text-left">Message</th>
+                <th class="px-4 py-2 text-left">Prediction</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in results %}
+              <tr class="border-t border-gray-600">
+                <td class="px-4 py-2">{{ row['message'] }}</td>
+                <td class="px-4 py-2 font-bold {% if row['Prediction'] == 'Cyberbullying' %}text-red-400{% else %}text-green-400{% endif %}">
+                  {{ row['Prediction'] }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-gray-400 text-sm">
+    &copy; {{ 2025 }} AI Cyberbullying Detector
+  </footer>
+
+</body>
+</html>
