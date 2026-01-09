@@ -9,9 +9,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-nltk.download('stopwords')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 import re
