@@ -3,5 +3,5 @@ scikit-learn
 pandas
 joblib
 nltk
-tailwindcss
 gunicorn
+numpy
