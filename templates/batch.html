@@ -5,41 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Batch Cyberbullying Detection</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    .zoom-button {
+      transition: transform 0.3s ease;
+    }
+
+    .zoom-button:hover {
+      transform: scale(1.015);
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col" style="background: linear-gradient(135deg, #fccb90, #d57eeb);">
 
   <!-- Header -->
-  <header class="py-10 text-center bg-gray-800 shadow">
-    <h1 class="text-4xl font-bold text-violet-300">Batch Cyberbullying Detection</h1>
-    <p class="text-lg text-violet-400">Upload a CSV file to analyze multiple messages</p>
-    <a href="/" class="inline-block mt-2 text-blue-300 hover:underline">&larr; Back to single message</a>
+  <header class="py-10 text-center">
+    <h1 class="text-4xl font-extrabold text-gray-800 drop-shadow-md">Batch Cyberbullying Detection</h1>
+    <p class="text-lg text-gray-700">Upload a CSV file to analyze multiple messages</p>
+    <a href="/" class="inline-block mt-2 text-gray-800 hover:text-gray-900 hover:underline transition">&larr; Back to single message</a>
   </header>
 
   <!-- Main -->
   <main class="flex-1 flex flex-col items-center justify-center px-4 py-8">
-    <form method="POST" enctype="multipart/form-data" class="bg-gray-800 rounded-xl shadow-xl p-6 w-full max-w-lg border border-gray-700">
+    <form method="POST" enctype="multipart/form-data" class="bg-white/90 rounded-2xl shadow-xl p-6 w-full max-w-lg border border-gray-200">
       {% if error %}
       <div class="bg-red-500 text-white px-4 py-2 rounded mb-4 font-semibold">
         {{ error }}
       </div>
       {% endif %}
 
-      <label for="file" class="block font-semibold text-white mb-2">Upload CSV (column: <code>message</code>):</label>
+      <label for="file" class="block font-semibold text-gray-800 mb-2">
+        Upload CSV (column: <code class="text-gray-700">message</code>):
+      </label>
       <input type="file" id="file" name="file" accept=".csv" required
-             class="w-full bg-gray-700 border border-gray-600 text-white rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+             class="w-full bg-white text-black border border-gray-300 rounded px-4 py-2 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-400" />
 
       <button type="submit"
-              class="mt-4 w-full bg-violet-700 text-white font-bold py-3 rounded-lg shadow hover:bg-violet-800 transition">
+        class="mt-4 w-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500  text-white font-bold py-3 rounded-lg shadow-lg transition zoom-button">
         🔍 Analyze Batch
       </button>
     </form>
 
     {% if results %}
     <div class="mt-10 w-full max-w-3xl">
-      <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow overflow-x-auto">
-        <h2 class="text-xl font-bold mb-4">Results</h2>
+      <div class="bg-white/90 p-6 rounded-2xl border border-gray-200 shadow-lg overflow-x-auto">
+        <h2 class="text-xl font-bold mb-4 text-gray-800">Results</h2>
         <table class="min-w-full text-sm">
-          <thead class="bg-gray-700 text-white">
+          <thead class="bg-gray-100 text-gray-800">
             <tr>
               <th class="py-2 px-4 text-left">Message</th>
               <th class="py-2 px-4 text-left">Prediction</th>
@@ -47,9 +58,9 @@
           </thead>
           <tbody>
             {% for row in results %}
-            <tr class="border-t border-gray-600">
+            <tr class="border-t border-gray-300 hover:bg-gray-50 transition">
               <td class="py-2 px-4">{{ row['message'] }}</td>
-              <td class="py-2 px-4 font-semibold {% if row['Prediction'] == 'Cyberbullying' %}text-red-400{% else %}text-green-400{% endif %}">
+              <td class="py-2 px-4 font-semibold {% if row['Prediction'] == 'Cyberbullying' %}text-red-500{% else %}text-green-600{% endif %}">
                 {{ row['Prediction'] }}
               </td>
             </tr>
@@ -62,7 +73,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="py-6 text-center text-gray-400 text-sm">
+  <footer class="py-6 text-center text-gray-800 text-sm">
     &copy; {{ 2025 }} AI Cyberbullying Detector. All rights reserved.
   </footer>
 </body>
